@@ -1,4 +1,8 @@
 .series-list {
   list-style-type: none;
-  padding:none;
+}
+.series-list li {
+  padding:0;
+  margin-left:0;
+  margin-right:0;
 }
