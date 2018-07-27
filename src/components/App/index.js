@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Intro from '../Intro';
 
+import 'whatwg-fetch';
+
 // import logo from './logo.svg';
 import './App.css';
 
@@ -10,6 +12,13 @@ class App extends Component {
   state = {
     series: [],
   };
+
+  componentDidMount() {
+    // The component has rendered.
+    fetch('http://api.tvmaze.com/search/shows?q=Vikings')
+    .then(response => response.json())
+    .then(data => this.setState({ series: data }));
+  }
 
   render() {
     return (
