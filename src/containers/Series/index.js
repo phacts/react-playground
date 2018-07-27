@@ -18,8 +18,8 @@ class Series extends Component {
     fetch(`http://api.tvmaze.com/search/shows?q=${e.target.value}`)
       .then(response => response.json())
       .then(data => this.setState({ series: data, isFetching: false }));
-    console.log(e);
-    console.log(e.target.value);
+    // console.log(e);
+    // console.log(e.target.value);
   }
 
   render() {
