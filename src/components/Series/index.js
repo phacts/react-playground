@@ -1,7 +1,30 @@
 import React, { Component } from 'react';
-import SeriesList from '../../components/SeriesList';
-import Loader from '../../components/Loader';
-import Intro from '../../components/Intro';
+import Loader from '../Loader';
+import Intro from '../Intro';
+import { Link } from 'react-router-dom';
+import './index.css';
+
+// Quick functional component for the list item
+const SeriesListItem = ({series}) => (
+  <li>
+    <Link to={`/series/${series.show.id}`}>
+      {series.show.name}
+    </Link>
+  </li>
+)
+// Quick functional component for the list
+const SeriesList = props =>  {
+
+  return (
+    <div>
+      <ul className="series-list">
+        {props.list.map(item => (
+          <SeriesListItem key={item.show.id} series={item} />
+        ))}
+      </ul>
+    </div>
+  )
+}
 
 class Series extends Component {
 
