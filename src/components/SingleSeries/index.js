@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Loader from '../Loader';
 import { getShow, unmountShow } from '../../actions/seriesActions';
 import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
+import Breadcrumbs from "../Breadcrumbs";
 
 class SingleSeries extends Component {
   // state = {
@@ -32,10 +33,12 @@ class SingleSeries extends Component {
   }
 
   render() {
-    const { show } = this.props;
+    const { show, seriesQuery } = this.props;
     // console.log(this.props);
     return (
       <div>
+
+        <Breadcrumbs linkTitle={seriesQuery} />
         {
           (!show || !show.id) && <Loader />
         }
@@ -69,6 +72,7 @@ SingleSeries.propTypes = {
 
 const mapStateToProps = state => ({
   show: state.series.show,
+  seriesQuery: state.series.seriesQuery,
 });
 
 export default connect(mapStateToProps, { getShow, unmountShow })(SingleSeries);
