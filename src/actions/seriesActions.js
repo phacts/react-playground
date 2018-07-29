@@ -1,4 +1,4 @@
-import { GET_SHOW, UPDATE_QUERY, FETCH_SERIES_LIST } from './types.js';
+import { GET_SHOW, UNMOUNT_SHOW, UPDATE_QUERY, FETCH_SERIES_LIST } from './types.js';
 
 export const getShow = (id) => dispatch => {
   fetch(`http://api.tvmaze.com/shows/${id}?embed=episodes`)
@@ -9,6 +9,12 @@ export const getShow = (id) => dispatch => {
           payload: data,
         });
       });
+}
+
+export const unmountShow = () => dispatch => {
+  dispatch({
+    type: UNMOUNT_SHOW,
+  });
 }
 
 export const updateQuery = (query) => dispatch => {

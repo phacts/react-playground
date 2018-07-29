@@ -1,43 +1,62 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Loader from '../Loader';
+import { getShow, unmountShow } from '../../actions/seriesActions';
 
 class SingleSeries extends Component {
-  state = {
-    show: null
-  }
+  // state = {
+  //   show: null
+  // }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
+    console.log(this.props.match.params, 'params');
+    this.props.getShow(this.props.match.params.id);
+    // const { id } = this.props.match.params;
+  }
 
-    fetch(`http://api.tvmaze.com/shows/${id}?embed=episodes`)
-      .then(response => response.json())
-      .then(data => this.setState({ show: data }));
+  componentWillUnmount() {
+    this.props.unmountShow();
   }
 
   render() {
-    const { show } = this.state;
-    // console.log(show);
+    const { show } = this.props;
+    console.log(this.props);
     return (
       <div>
         {
-          show === null && <Loader />
+          (!show || !show.id) && <Loader />
         }
         {
-          show !== null
+          show && show.id
           &&
           <div>
             <p>{show.name}</p>
             <p>Premiered - { show.premiered }</p>
             <p>Rating - { show.rating.average }</p>
             <p>Episodes - { show._embedded.episodes.length }</p>
-            <p>
-              <img alt="Show" src={show.image.medium} />
-            </p>
+            {
+              show && show.image &&
+              <p>
+                <img alt="Show" src={show.image.medium} />
+              </p>
+            }
+            
           </div>
         }
       </div>
     )
   }
 }
+SingleSeries.propTypes = {
+  getShow: PropTypes.func.isRequired,
+  unmountShow: PropTypes.func.isRequired,
+  show: PropTypes.object.isRequired,
+  // id: PropTypes.number.isRequired,
+}
 
-export default SingleSeries;
+const mapStateToProps = state => ({
+  show: state.series.show,
+});
+
+export default connect(mapStateToProps, { getShow, unmountShow })(SingleSeries);

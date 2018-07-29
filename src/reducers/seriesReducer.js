@@ -1,4 +1,4 @@
-import { GET_SHOW, FETCH_SERIES_LIST, UPDATE_QUERY } from '../actions/types';
+import { GET_SHOW, UNMOUNT_SHOW, FETCH_SERIES_LIST, UPDATE_QUERY } from '../actions/types';
 
 const initialState = {
   series: [],
@@ -21,6 +21,13 @@ export default function(state = initialState, action) {
         ...state,
         isFetching: false,
         show: action.payload,
+      };
+    
+    case UNMOUNT_SHOW:
+      return {
+        ...state,
+        isFetching: false,
+        show: {}, // remove the show
       };
 
     case UPDATE_QUERY:
