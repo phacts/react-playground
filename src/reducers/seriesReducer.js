@@ -1,10 +1,11 @@
-import { GET_SHOW, UNMOUNT_SHOW, FETCH_SERIES_LIST, UPDATE_QUERY } from '../actions/types';
+import { GET_SHOW, UNMOUNT_SHOW, FETCH_SERIES_LIST, UPDATE_QUERY, SAVE_SERIES, REMOVE_SAVED_SERIES } from '../actions/types';
 
 const initialState = {
   series: [],
   seriesQuery: '',
   isFetching: false,
   show: {},
+  saved: [],
 };
 
 export default function(state = initialState, action) {
@@ -35,6 +36,17 @@ export default function(state = initialState, action) {
         ...state,
         seriesQuery: action.payload,
         isFetching: true,
+      }
+
+    case SAVE_SERIES:
+      return {
+        ...state,
+        saved: state.saved.concat(action.payload),
+      }
+    case REMOVE_SAVED_SERIES:
+      return {
+        ...state,
+        saved: state.saved.filter(show => show.id !== action.payload),
       }
 
     default:

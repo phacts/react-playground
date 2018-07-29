@@ -7,6 +7,7 @@ import Loader from '../Loader';
 import Intro from '../Intro';
 import { Link } from 'react-router-dom';
 import './index.css';
+import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
 
 // Quick functional component for the list item
 const SeriesListItem = ({series}) => (
@@ -14,6 +15,7 @@ const SeriesListItem = ({series}) => (
     <Link to={`/series/${series.show.id}`}>
       {series.show.name}
     </Link>
+    <SavedSeriesToggle show={series.show} />
   </li>
 )
 // Quick functional component for the list

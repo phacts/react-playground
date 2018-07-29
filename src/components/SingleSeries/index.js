@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import { getShow, unmountShow } from '../../actions/seriesActions';
+import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
 
 class SingleSeries extends Component {
   // state = {
@@ -10,18 +11,29 @@ class SingleSeries extends Component {
   // }
 
   componentDidMount() {
-    console.log(this.props.match.params, 'params');
+    // console.log(this.props.match.params, 'params');
     this.props.getShow(this.props.match.params.id);
     // const { id } = this.props.match.params;
+  }
+
+  componentDidUpdate() {
+    this.props.getShow(this.props.match.params.id);
   }
 
   componentWillUnmount() {
     this.props.unmountShow();
   }
 
+  shouldComponentUpdate(nextProps) {
+    if ((this.props.show) && nextProps.show === this.props.show) {
+      return false;
+    }
+    return true;
+  }
+
   render() {
     const { show } = this.props;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <div>
         {
@@ -41,7 +53,7 @@ class SingleSeries extends Component {
                 <img alt="Show" src={show.image.medium} />
               </p>
             }
-            
+            <SavedSeriesToggle show={show} />
           </div>
         }
       </div>
