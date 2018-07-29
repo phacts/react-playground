@@ -18,32 +18,35 @@ class SingleSeries extends Component {
   }
 
   componentDidUpdate() {
-    this.props.getShow(this.props.match.params.id);
+    if (this.props.show && this.props.show.id && this.props.show.id !== (1 * this.props.match.params.id)) {
+      this.props.getShow(this.props.match.params.id);
+    }
   }
 
   componentWillUnmount() {
-    this.props.unmountShow();
+    // this.props.unmountShow();
   }
 
-  shouldComponentUpdate(nextProps) {
-    if ((this.props.show) && nextProps.show === this.props.show) {
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   if (nextProps.show && nextProps.show.id && nextProps.show.id !== (1 * this.props.match.params.id)) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   render() {
-    const { show, seriesQuery } = this.props;
+    const { show, seriesQuery, match } = this.props;
+    const shouldDisplay = show && show.id && show.id === (1 * match.params.id);
     // console.log(this.props);
     return (
       <div>
 
         <Breadcrumbs linkTitle={seriesQuery} />
         {
-          (!show || !show.id) && <Loader />
+          !shouldDisplay && <Loader />
         }
         {
-          show && show.id
+          shouldDisplay
           &&
           <div>
             <p>{show.name}</p>
