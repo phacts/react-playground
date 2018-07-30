@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { saveSeries, removeSavedSeries } from '../../actions/seriesActions';
 
+import { Button } from 'semantic-ui-react';
+
 
 class SavedSeriesToggle extends Component {
 
@@ -31,12 +33,12 @@ class SavedSeriesToggle extends Component {
         {
           isSaved
           &&
-          <button onClick={this.remove.bind(this, show.id)}>Forget</button>
+          <Button onClick={this.remove.bind(this, show.id)} content='Forget' />
         }
         {
           !isSaved
           &&
-          <button onClick={this.save.bind(this, show)}>Save</button>
+          <Button onClick={this.save.bind(this, show)} content='Save' />
         }
       </div>
     )
