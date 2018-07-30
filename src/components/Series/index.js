@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { fetchSeriesList, updateQuery } from '../../actions/seriesActions';
-import Loader from '../Loader';
+// import Loader from '../Loader';
+import { Loader, Input } from 'semantic-ui-react';
 import Intro from '../Intro';
 import { Link } from 'react-router-dom';
 import './index.css';
@@ -67,7 +68,7 @@ class Series extends Component {
 
         <Intro message="Here you can find your favorite shows!" />
         <div>
-          <input type="text" value={seriesQuery} onChange={this.onSeriesInputChange} />
+          <Input value={seriesQuery} onChange={this.onSeriesInputChange} />
         </div>
         { 
           series.length === 0 && seriesQuery.trim() === ''
@@ -80,7 +81,7 @@ class Series extends Component {
           <p>No TV series have been found with this name</p>
         }
         {
-          isFetching && <Loader />
+          isFetching && <Loader active />
         }
         {
           !isFetching && <SeriesList list={series} />

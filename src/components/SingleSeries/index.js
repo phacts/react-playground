@@ -1,7 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Loader from '../Loader';
+// import Loader from '../Loader';
+import { Loader, Card, Divider, Image, Rating, Container } from 'semantic-ui-react';
 import { getShow, unmountShow } from '../../actions/seriesActions';
 import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
 import Breadcrumbs from "../Breadcrumbs";
@@ -11,19 +12,30 @@ class SingleSeriesPanel extends PureComponent {
   render() {
     const { show } = this.props;
     return (
-      <div>
-        <p>{show.name}</p>
-        <p>Premiered - { show.premiered }</p>
-        <p>Rating - { show.rating.average }</p>
-        <p>Episodes - { show._embedded.episodes.length }</p>
-        {
-          show && show.image &&
-          <p>
-            <img alt="Show" src={show.image.medium} />
-          </p>
-        }
-        <SavedSeriesToggle show={show} />
-      </div>
+
+      <Container>
+        <Card>
+          {
+            !!show.image
+            &&
+            <Image alt="Show" src={show.image.medium} />
+          }
+          <Card.Content>
+            <Card.Header>{ show.name }</Card.Header>
+            <Card.Meta>
+              <span className='date'>Premiered on { show.premiered }</span>
+            </Card.Meta>
+            <Card.Description>
+              Episodes - { show._embedded.episodes.length }
+              <Divider />
+              <Rating disabled icon='star' defaultRating={(show.rating.average / 2)} maxRating={5} />
+            </Card.Description>
+          </Card.Content>
+          <Card.Content extra>
+            <SavedSeriesToggle show={show} />
+          </Card.Content>
+        </Card>
+      </Container>
     );
   }
 }
@@ -64,7 +76,7 @@ class SingleSeries extends Component {
 
         <Breadcrumbs linkTitle={seriesQuery} />
         {
-          !shouldDisplay && <Loader />
+          !shouldDisplay && <Loader active />
         }
         {
           shouldDisplay
