@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { List } from 'semantic-ui-react';
 import { removeSavedSeries } from '../../actions/seriesActions';
 
 class SavedSeries extends Component {
@@ -10,11 +11,11 @@ class SavedSeries extends Component {
     const { saved } = this.props;
 
     const SavedList = saved.map(show => (
-      <li key={show.id}>
+      <List.Item key={show.id}>
         <Link to={`/series/${show.id}`}>
           {show.name}
         </Link>
-      </li>
+      </List.Item>
     ));
 
     // console.log(this.props);
@@ -28,11 +29,10 @@ class SavedSeries extends Component {
         {
           !!saved.length
           &&
-          <ul>
+          <List>
             { SavedList }
-          </ul>
+          </List>
         }
-        <hr />
       </div>
     )
   }

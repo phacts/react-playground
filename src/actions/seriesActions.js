@@ -1,7 +1,7 @@
 import { GET_SHOW, UNMOUNT_SHOW, UPDATE_QUERY, FETCH_SERIES_LIST, SAVE_SERIES, REMOVE_SAVED_SERIES } from './types.js';
 
 export const getShow = (id) => dispatch => {
-  fetch(`http://api.tvmaze.com/shows/${id}?embed=episodes`)
+  return fetch(`http://api.tvmaze.com/shows/${id}?embed=episodes`)
       .then(response => response.json())
       .then(data => {
         dispatch({
@@ -12,25 +12,30 @@ export const getShow = (id) => dispatch => {
 }
 
 export const unmountShow = () => dispatch => {
-  dispatch({
+  return dispatch({
     type: UNMOUNT_SHOW,
   });
 }
 
 export const updateQuery = (query) => dispatch => {
+  // dispatch({
+  //   type: UPDATE_QUERY,
+  //   payload: query,
+  // });
+}
+
+export const fetchSeriesList = (query) => dispatch => {
   dispatch({
     type: UPDATE_QUERY,
     payload: query,
   });
-}
 
-export const fetchSeriesList = (query) => dispatch => {
   // console.log(query, 'calling fetch series list');
-  fetch(`http://api.tvmaze.com/search/shows?q=${query}`)
+  return fetch(`http://api.tvmaze.com/search/shows?q=${query}`)
     .then(response => response.json())
     .then(data => {
       // console.log(data);
-      dispatch({
+      return dispatch({
         type: FETCH_SERIES_LIST,
         payload: data,
       });
@@ -38,14 +43,14 @@ export const fetchSeriesList = (query) => dispatch => {
 }
 
 export const saveSeries = (series) => dispatch => {
-  dispatch({
+  return dispatch({
     type: SAVE_SERIES,
     payload: series
   });
 }
 
 export const removeSavedSeries = (id) => dispatch =>  {
-  dispatch({
+  return dispatch({
     type: REMOVE_SAVED_SERIES,
     payload: id,
   })
