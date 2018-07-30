@@ -1,10 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Loader from '../Loader';
 import { getShow, unmountShow } from '../../actions/seriesActions';
 import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
 import Breadcrumbs from "../Breadcrumbs";
+
+class SingleSeriesPanel extends PureComponent {
+
+  render() {
+    const { show } = this.props;
+    return (
+      <div>
+        <p>{show.name}</p>
+        <p>Premiered - { show.premiered }</p>
+        <p>Rating - { show.rating.average }</p>
+        <p>Episodes - { show._embedded.episodes.length }</p>
+        {
+          show && show.image &&
+          <p>
+            <img alt="Show" src={show.image.medium} />
+          </p>
+        }
+        <SavedSeriesToggle show={show} />
+      </div>
+    );
+  }
+}
 
 class SingleSeries extends Component {
   // state = {
@@ -16,7 +38,6 @@ class SingleSeries extends Component {
     this.props.getShow(this.props.match.params.id);
     // const { id } = this.props.match.params;
   }
-
   componentDidUpdate() {
     if (this.props.show && this.props.show.id && this.props.show.id !== (1 * this.props.match.params.id)) {
       this.props.getShow(this.props.match.params.id);
@@ -24,7 +45,7 @@ class SingleSeries extends Component {
   }
 
   componentWillUnmount() {
-    // this.props.unmountShow();
+    this.props.unmountShow();
   }
 
   // shouldComponentUpdate(nextProps) {
@@ -48,19 +69,7 @@ class SingleSeries extends Component {
         {
           shouldDisplay
           &&
-          <div>
-            <p>{show.name}</p>
-            <p>Premiered - { show.premiered }</p>
-            <p>Rating - { show.rating.average }</p>
-            <p>Episodes - { show._embedded.episodes.length }</p>
-            {
-              show && show.image &&
-              <p>
-                <img alt="Show" src={show.image.medium} />
-              </p>
-            }
-            <SavedSeriesToggle show={show} />
-          </div>
+          <SingleSeriesPanel show={show} />
         }
       </div>
     )
