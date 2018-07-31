@@ -9,6 +9,7 @@ import Intro from '../Intro';
 import { Link } from 'react-router-dom';
 import './index.css';
 import SavedSeriesToggle from '../SavedSeries/SavedSeriesToggle';
+import debounce from '../../utilities/debounce';
 
 // Quick functional component for the list item
 const SeriesListItem = ({series}) => (
@@ -35,7 +36,11 @@ const SeriesList = props =>  {
 }
 
 class Series extends Component {
-
+  constructor(props) {
+    super(props);
+    // Add our lightweight debouncer (from underscore) to the refresh series call
+    this.refreshSeries = debounce(this.refreshSeries, 300);
+  }
 
   // state = {
   //   series: [],
@@ -48,14 +53,17 @@ class Series extends Component {
   //   this.props.fetchSeriesList(this.props.seriesQuery);
   // }
   
+  refreshSeries = () => {
+    // console.log(this.props.seriesQuery, 'in refresh series');
+    // Dispatch our fetch request 
+    this.props.fetchSeriesList(this.props.seriesQuery);
+  }
 
 
   onSeriesInputChange = e => {
     this.props.updateQuery(e.target.value); // would setting this.props.seriesQuery suffice?
     
-    // Dispatch our fetch request 
-    this.props.fetchSeriesList(e.target.value);
-
+    this.refreshSeries();
     // console.log(e);
     // console.log(e.target.value);
   }

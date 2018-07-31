@@ -18,17 +18,17 @@ export const unmountShow = () => dispatch => {
 }
 
 export const updateQuery = (query) => dispatch => {
-  // dispatch({
-  //   type: UPDATE_QUERY,
-  //   payload: query,
-  // });
-}
-
-export const fetchSeriesList = (query) => dispatch => {
   dispatch({
     type: UPDATE_QUERY,
     payload: query,
   });
+}
+
+export const fetchSeriesList = (query) => dispatch => {
+  // dispatch({
+  //   type: UPDATE_QUERY,
+  //   payload: query,
+  // });
 
   // console.log(query, 'calling fetch series list');
   return fetch(`http://api.tvmaze.com/search/shows?q=${query}`)
