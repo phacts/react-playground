@@ -72,6 +72,11 @@ export default class SidebarMenuFixed extends Component {
           <Icon name='chat'></Icon>
         </Menu.Item>
         <Menu.Item as='a'>
+          Cybrary Live
+          <Icon name='video camera'></Icon>
+          <Label style={labelStyles} color='red' circular empty={true}></Label>
+        </Menu.Item>
+        <Menu.Item as='a'>
           Learner Preferences
           <Icon name='cog'></Icon>
         </Menu.Item>
