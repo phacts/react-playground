@@ -67,6 +67,16 @@ export default class SidebarMenuFixed extends Component {
         </Menu.Item>
 
 
+        <Menu.Item as='a'>
+          Discussions
+          <Icon name='chat'></Icon>
+        </Menu.Item>
+        <Menu.Item as='a'>
+          Learner Preferences
+          <Icon name='cog'></Icon>
+        </Menu.Item>
+
+
         {/* <Menu.Item>
           <Input icon='search' placeholder='Search mail...' />
         </Menu.Item> */}
