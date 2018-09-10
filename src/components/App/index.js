@@ -61,10 +61,6 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        {/* <div className="App"> */}
-          {/* <header className="App-header">
-            <h1 className="App-title">TV Series List</h1>
-          </header> */}
         <div>
           <div style={styles.container.sidebarPrimary}>
             <PrimarySidebarFixed />
@@ -92,7 +88,6 @@ class App extends Component {
             </Grid>
           </div>
         </div>
-        {/* </div> */}
       </Provider>
     );
   }
