@@ -37,6 +37,7 @@ const NavbarExample = () => {
             <Dropdown item icon='bell' basic>
               <Dropdown.Menu>
                 <Dropdown.Header>Latest Notifications</Dropdown.Header>
+                <Dropdown.Divider></Dropdown.Divider>
                 <Dropdown.Item>You have one new task You have one new task</Dropdown.Item>
                 <Dropdown.Item>Someone said something to you</Dropdown.Item>
                 <Dropdown.Item>Another thing happened, you can count on it.</Dropdown.Item>
